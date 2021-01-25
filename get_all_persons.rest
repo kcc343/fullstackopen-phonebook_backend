@@ -1,16 +1,16 @@
-GET http://localhost:3001/api/persons
+GET https://frozen-garden-30312.herokuapp.com/api/persons
 
 ###
-GET http://localhost:3001/info
+GET https://frozen-garden-30312.herokuapp.com/info
 
 ###
-GET http://localhost:3001/api/persons/2
+GET https://frozen-garden-30312.herokuapp.com/api/persons/2
 
 ###
-DELETE http://localhost:3001/api/persons/4
+DELETE https://frozen-garden-30312.herokuapp.com/api/persons/4
 
 ###
-POST http://localhost:3001/api/persons
+POST https://frozen-garden-30312.herokuapp.com/api/persons
 content-type: application/json
 
 {
