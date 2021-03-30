@@ -1,19 +1,28 @@
-GET https://frozen-garden-30312.herokuapp.com/api/persons
+GET http://localhost:3001/api/persons
 
 ###
-GET https://frozen-garden-30312.herokuapp.com/info
+GET http://localhost:3001/info
 
 ###
-GET https://frozen-garden-30312.herokuapp.com/api/persons/2
+GET http://localhost:3001/api/persons/605d64f27d11331ad029ea6e
 
 ###
-DELETE https://frozen-garden-30312.herokuapp.com/api/persons/4
+DELETE http://localhost:3001/api/persons/60107456ead2458987
 
 ###
-POST https://frozen-garden-30312.herokuapp.com/api/persons
+POST http://localhost:3001/api/persons
 content-type: application/json
 
 {
     "name": "Arto Hellas",
-    "number": "85-82344"
+    "phone": "85-828890"
+}
+
+###
+PUT http://localhost:3001/api/persons/6010730fd82e1923509110f3
+content-type: application/json
+
+{
+    "name": "Anna",
+    "phone": "85-82344"
 }
