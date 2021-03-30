@@ -74,7 +74,6 @@ app.post('/api/persons', (request, response, next) => {
 
 app.put('/api/persons/:id', (request, response, next) => {
   const body = request.body
-  console.log(request.params.id)
   const person = { 
     phone: body.phone,
   }
