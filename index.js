@@ -86,6 +86,10 @@ app.put('/api/persons/:id', (request, response, next) => {
     .catch(error => next(error))
 });
 
+app.get('*', (req, res) => {
+  res.sendFile(path.resolve(__dirname, 'build', 'index.html'));
+});
+
 const errorHandler = (error, request, response, next) => {
   console.error(error.message)
   console.log(error.name)
