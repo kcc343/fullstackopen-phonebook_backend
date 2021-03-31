@@ -3,17 +3,21 @@ const express = require('express')
 const morgan = require('morgan')
 const cors = require('cors');
 
+const path = require('path')
+
 const app = express()
 app.use(cors())
 app.use(express.json())
 app.use(morgan(':method :url :status :res[content-length] - :response-time ms :data'))
-app.use(express.static('build'))
+app.use(express.static(path.resolve(__dirname, "build")))
 
 morgan.token('data', function(req, res) {
   return JSON.stringify(req.body);
 });
 
-
+app.get("/*", (req, res) =>
+  res.sendFile(path.resolve(__dirname, "build", "index.html"))
+);
 const Person = require('./models/person');
 
 app.get('/api/persons', (request, response) => {
@@ -84,10 +88,6 @@ app.put('/api/persons/:id', (request, response, next) => {
       response.json(updatedPerson)
     })
     .catch(error => next(error))
-});
-
-app.get('*', (req, res) => {
-  res.sendFile(path.resolve(__dirname, 'build', 'index.html'));
 });
 
 const errorHandler = (error, request, response, next) => {
