@@ -7,6 +7,7 @@ const app = express()
 app.use(cors())
 app.use(express.json())
 app.use(morgan(':method :url :status :res[content-length] - :response-time ms :data'))
+app.use(express.static('build'))
 
 morgan.token('data', function(req, res) {
   return JSON.stringify(req.body);
@@ -98,7 +99,6 @@ const errorHandler = (error, request, response, next) => {
 }
 
 app.use(errorHandler)
-app.use(express.static('build'))
 
 const PORT = process.env.PORT || 3001
 app.listen(PORT, () => {
