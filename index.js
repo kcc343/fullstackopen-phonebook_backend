@@ -1,26 +1,24 @@
 require('dotenv').config()
-const express = require('express')
-const morgan = require('morgan')
-const cors = require('cors');
-
-const path = require('path')
+import express, { json } from 'express';
+import morgan, { token } from 'morgan';
+import cors from 'cors';
 
 const app = express()
 app.use(cors())
-app.use(express.json())
+app.use(json())
 app.use(morgan(':method :url :status :res[content-length] - :response-time ms :data'))
 app.use(express.static('build'))
 
 
-morgan.token('data', function(req, res) {
+token('data', function(req, res) {
   return JSON.stringify(req.body);
 });
 
 
-const Person = require('./models/person');
+import Person, { find, findById, findByIdAndRemove, findByIdAndUpdate } from './models/person';
 
 app.get('/api/persons', (request, response) => {
-  Person.find({}).then(persons => {
+  find({}).then(persons => {
     response.json(persons);
   })
 });
@@ -28,13 +26,13 @@ app.get('/api/persons', (request, response) => {
 app.get('/info', (request, response) => {
   let date = new Date()
   response.writeHead(200, { 'Content-Type': 'text/plain' })
-  Person.find({}).then(persons => {
+  find({}).then(persons => {
     response.end(`Phonebook has info for ${persons.length} people \n${date}`)
   })
 });
 
 app.get('/api/persons/:id', (request, response, next) => {
-  Person.findById(request.params.id)
+  findById(request.params.id)
     .then(person => {
       if (person) {
         response.json(person)
@@ -46,7 +44,7 @@ app.get('/api/persons/:id', (request, response, next) => {
 });
 
 app.delete('/api/persons/:id', (request, response, next) => {
-  Person.findByIdAndRemove(request.params.id)
+  findByIdAndRemove(request.params.id)
   .then(result => {
     response.status(204).end()
   })
@@ -82,7 +80,7 @@ app.put('/api/persons/:id', (request, response, next) => {
     phone: body.phone,
   }
   
-  Person.findByIdAndUpdate(request.params.id, person, { returnOriginal: false, runValidators: true } )
+  findByIdAndUpdate(request.params.id, person, { returnOriginal: false, runValidators: true } )
     .then(updatedPerson => {
       response.json(updatedPerson)
     })
